@@ -3,8 +3,10 @@ const router=express.Router()
 const jwt=require('jsonwebtoken')
 const User = require('../models/user')
 const bcrypt=require('bcryptjs')
+const cors = require("cors");
 require('dotenv/config')
 
+router.use(cors());
 
 router.get('/',async (req,res)=>{
     const userList=await User.find()
@@ -51,7 +53,8 @@ router.get('/:id',async (req,res)=>{
 router.post('/',async (req,res)=>{
    
     let user=new User({
-    name:req.body.name,
+    fname:req.body.fname,
+        lname:req.body.lname,
      email: req.body.email,
      passwordHash:bcrypt.hashSync(req.body.password,10),
    })
